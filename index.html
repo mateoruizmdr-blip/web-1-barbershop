@@ -30,13 +30,6 @@
             <h2>MATEO</h2>
         </div>
     </div>
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="loader">
-            <div class="loader-circle"></div>
-            <div class="loader-text">MATEO</div>
-        </div>
-    </div>
 
     <!-- Navbar -->
     <nav class="navbar">
@@ -46,6 +39,7 @@
                 <li><a href="#home">Inicio</a></li>
                 <li><a href="#services">Servicios</a></li>
                 <li><a href="#team">Equipo</a></li>
+                <li><a href="#vip">Club VIP</a></li>
                 <li><a href="#products">Productos</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="#booking">Reservas</a></li>
@@ -58,10 +52,6 @@
             </div>
         </div>
     </nav>
-
-    <!-- Hero Section --><!-- ... omitted for brevity in call, but in reality I am just targeting the Loader insertion point ... -->
-    <!-- Creating clearer separate chunks for safety -->
-
 
     <!-- Hero Section -->
     <section id="home" class="hero">
@@ -78,25 +68,25 @@
         <div class="container">
             <h2 class="section-title">NUESTROS <span class="gold-text">SERVICIOS</span></h2>
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card reveal">
                     <i class="fas fa-cut service-icon"></i>
                     <h3>CORTE DE PELO</h3>
                     <p class="price">15€</p>
                     <p>Corte clásico o moderno, degradados y styling.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card reveal">
                     <i class="fas fa-user-tie service-icon"></i>
                     <h3>ARREGLO DE BARBA</h3>
                     <p class="price">10€</p>
                     <p>Perfilado, recorte y tratamiento con toalla caliente.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card reveal">
                     <i class="fas fa-tint service-icon"></i>
                     <h3>TINTE / COLOR</h3>
                     <p class="price">25€</p>
                     <p>Cubrimiento de canas o cambio de look radical.</p>
                 </div>
-                <div class="service-card">
+                <div class="service-card reveal">
                     <i class="fas fa-crown service-icon"></i>
                     <h3>RITUAL COMPLETO</h3>
                     <p class="price">30€</p>
@@ -128,6 +118,31 @@
                         alt="Ana">
                     <h3>ANA</h3>
                     <p class="role">Especialista en Estilo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIP Membership Section -->
+    <section id="vip" class="section vip-section">
+        <div class="container">
+            <h2 class="section-title">CLUB <span class="gold-text">VIP</span></h2>
+            <div class="vip-container reveal">
+                <div class="vip-card">
+                    <div class="vip-header">
+                        <i class="fas fa-crown"></i>
+                        <h3>MEMBRESÍA GOLD</h3>
+                    </div>
+                    <div class="vip-body">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Cortes ilimitados</li>
+                            <li><i class="fas fa-check"></i> Prioridad en reservas</li>
+                            <li><i class="fas fa-check"></i> Bebida gratis en cada visita</li>
+                            <li><i class="fas fa-check"></i> 10% dto. en productos</li>
+                        </ul>
+                        <div class="price-tag">45€ / mes</div>
+                        <button class="btn btn-primary">UNIRME AL CLUB</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -169,11 +184,41 @@
         </div>
     </section>
 
+    <!-- Products Section -->
+    <section id="products" class="section products-section">
+        <div class="container">
+            <h2 class="section-title">PRODUCTOS <span class="gold-text">PREMIUM</span></h2>
+            <div class="products-grid">
+                <div class="product-card reveal">
+                    <img src="https://images.unsplash.com/photo-1626285861696-9f0bf5a49c6d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                        alt="Cera Mate">
+                    <h3>CERA MATE</h3>
+                    <p class="price">18€</p>
+                    <button class="btn btn-sm">AÑADIR</button>
+                </div>
+                <div class="product-card reveal">
+                    <img src="https://images.unsplash.com/photo-1624835848698-4c127453000b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                        alt="Aceite Barba">
+                    <h3>ACEITE BARBA</h3>
+                    <p class="price">22€</p>
+                    <button class="btn btn-sm">AÑADIR</button>
+                </div>
+                <div class="product-card reveal">
+                    <img src="https://images.unsplash.com/photo-1556228720-196729582236?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                        alt="Aftershave">
+                    <h3>AFTERSHAVE</h3>
+                    <p class="price">25€</p>
+                    <button class="btn btn-sm">AÑADIR</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Booking Section -->
     <section id="booking" class="section booking-section">
         <div class="container">
             <h2 class="section-title">RESERVA TU <span class="gold-text">CITA</span></h2>
-            <div class="booking-container">
+            <div class="booking-container reveal">
                 <form id="bookingForm" class="booking-form">
                     <div class="form-group">
                         <label for="name">Nombre Completo</label>
@@ -187,8 +232,9 @@
                         <label for="employee">Barbero</label>
                         <select id="employee" required>
                             <option value="any">Cualquiera</option>
-                            <option value="pepito">Pepito</option>
-                            <option value="pepita">Pepita</option>
+                            <option value="mateo">Mateo</option>
+                            <option value="carlos">Carlos</option>
+                            <option value="ana">Ana</option>
                         </select>
                     </div>
                     <div class="form-row">
@@ -224,29 +270,29 @@
         <div class="container">
             <h2 class="section-title">NUESTRO <span class="gold-text">TRABAJO</span></h2>
             <div class="gallery-grid" id="galleryGrid">
-                <div class="gallery-item">
+                <div class="gallery-item reveal">
                     <img src="https://images.unsplash.com/photo-1503951914875-befbb7135952?auto=format&fit=crop&w=500&q=80"
-                        alt="Barbero trabajando" style="width:100%; height:100%; object-fit:cover;">
+                        alt="Barbero trabajando">
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item reveal">
                     <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=500&q=80"
-                        alt="Herramientas de barbería" style="width:100%; height:100%; object-fit:cover;">
+                        alt="Herramientas de barbería">
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item reveal">
                     <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=500&q=80"
-                        alt="Corte de pelo moderno" style="width:100%; height:100%; object-fit:cover;">
+                        alt="Corte de pelo moderno">
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item reveal">
                     <img src="https://images.unsplash.com/photo-1532710093739-9470acff878f?auto=format&fit=crop&w=500&q=80"
-                        alt="Sillón de barbero clásico" style="width:100%; height:100%; object-fit:cover;">
+                        alt="Sillón de barbero clásico">
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item reveal">
                     <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=500&q=80"
-                        alt="Detalle de corte" style="width:100%; height:100%; object-fit:cover;">
+                        alt="Detalle de corte">
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item reveal">
                     <img src="https://images.unsplash.com/photo-1593702295094-aea8c5c75143?auto=format&fit=crop&w=500&q=80"
-                        alt="Arreglo de barba" style="width:100%; height:100%; object-fit:cover;">
+                        alt="Arreglo de barba">
                 </div>
             </div>
         </div>
@@ -256,7 +302,7 @@
     <section id="location" class="section location-section">
         <div class="container">
             <h2 class="section-title">ENCUÉNTR<span class="gold-text">ANOS</span></h2>
-            <div class="location-content">
+            <div class="location-content reveal">
                 <div class="map-container">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.605658237978!2d-3.703790284606018!3d40.41677537936526!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422883a9e34699%3A0x6ec35b719416ddc9!2sPuerta%20 del%20Sol%2C%20Madrid!5e0!3m2!1ses!2ses!4v1625686000000!5m2!1ses!2ses"
@@ -266,86 +312,11 @@
                     <i class="fas fa-map-marker-alt"></i>
                     <h3>DIRECCIÓN</h3>
                     <p>Calle Falsa 123, Centro</p>
-                    <p>Ciudad, CP 28000</p>
+                    <p>Madrid, CP 28000</p>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- VIP Membership Section -->
-    <section id="vip" class="section vip-section">
-        <div class="container">
-            <h2 class="section-title">CLUB <span class="gold-text">VIP</span></h2>
-            <div class="vip-container reveal">
-                <div class="vip-card">
-                    <div class="vip-header">
-                        <i class="fas fa-crown"></i>
-                        <h3>MEMBRESÍA GOLD</h3>
-                    </div>
-                    <div class="vip-body">
-                        <ul>
-                            <li><i class="fas fa-check"></i> Cortes ilimitados</li>
-                            <li><i class="fas fa-check"></i> Prioridad en reservas</li>
-                            <li><i class="fas fa-check"></i> Bebida gratis en cada visita</li>
-                            <li><i class="fas fa-check"></i> 10% dto. en productos</li>
-                        </ul>
-                        <div class="price-tag">45€ / mes</div>
-                        <button class="btn btn-primary">UNIRME AL CLUB</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products" class="section products-section">
-        <div class="container">
-            <h2 class="section-title">PRODUCTOS <span class="gold-text">PREMIUM</span></h2>
-            <div class="products-grid">
-                <div class="product-card reveal">
-                    <img src="https://images.unsplash.com/photo-1626285861696-9f0bf5a49c6d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                        alt="Cera Mate">
-                    <h3>CERA MATE</h3>
-                    <p class="price">18€</p>
-                    <button class="btn btn-sm">AÑADIR</button>
-                </div>
-                <div class="product-card reveal">
-                    <img src="https://images.unsplash.com/photo-1624835848698-4c127453000b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                        alt="Aceite Barba">
-                    <h3>ACEITE BARBA</h3>
-                    <p class="price">22€</p>
-                    <button class="btn btn-sm">AÑADIR</button>
-                </div>
-                <div class="product-card reveal">
-                    <img src="https://images.unsplash.com/photo-1556228720-196729582236?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-                        alt="Aftershave">
-                    <h3>AFTERSHAVE</h3>
-                    <p class="price">25€</p>
-                    <button class="btn btn-sm">AÑADIR</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/34600000000" class="whatsapp-btn" target="_blank" title="Contactar por WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- Booking Modal -->
-    <div id="bookingModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <i class="fas fa-check-circle modal-icon"></i>
-            <h2>¡RESERVA CONFIRMADA!</h2>
-            <p>Gracias, <span id="modalName" class="gold-text"></span>.</p>
-            <p>Te esperamos el <span id="modalDate" class="gold-text"></span> a las <span id="modalTime"
-                    class="gold-text"></span>.</p>
-            <div class="modal-divider"></div>
-            <p class="modal-small">Hemos enviado los detalles a tu correo.</p>
-            <button class="btn btn-primary" id="closeModalBtn">ENTENDIDO</button>
-        </div>
-    </div>
 
     <!-- FAQ Section -->
     <section id="faq" class="section faq-section">
@@ -391,6 +362,37 @@
         <i class="fas fa-arrow-up"></i>
     </a>
 
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/34600000000" class="whatsapp-btn" target="_blank" title="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <i class="fas fa-check-circle modal-icon"></i>
+            <h2>¡RESERVA CONFIRMADA!</h2>
+            <p>Gracias, <span id="modalName" class="gold-text"></span>.</p>
+            <p>Te esperamos el <span id="modalDate" class="gold-text"></span> a las <span id="modalTime"
+                    class="gold-text"></span>.</p>
+            <div class="modal-divider"></div>
+            <p class="modal-small">Hemos enviado los detalles a tu correo.</p>
+            <button class="btn btn-primary" id="closeModalBtn">ENTENDIDO</button>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookieBanner" class="cookie-banner">
+        <div class="cookie-content">
+            <p>Utilizamos cookies para mejorar tu experiencia. Al continuar navegando, aceptas nuestra política de
+                privacidad.</p>
+            <div class="cookie-buttons">
+                <button id="acceptCookies" class="btn btn-sm btn-accept">ACEPTAR</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container footer-content">
@@ -425,17 +427,6 @@
             <p>&copy; 2026 Mateo Barber Shop. Todos los derechos reservados.</p>
         </div>
     </footer>
-
-    <!-- Cookie Consent Banner -->
-    <div id="cookieBanner" class="cookie-banner">
-        <div class="cookie-content">
-            <p>Utilizamos cookies para mejorar tu experiencia. Al continuar navegando, aceptas nuestra política de
-                privacidad.</p>
-            <div class="cookie-buttons">
-                <button id="acceptCookies" class="btn btn-sm btn-accept">ACEPTAR</button>
-            </div>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>

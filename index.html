@@ -26,6 +26,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const formulario = document.getElementById('bookingForm');
+    if (!formulario) return;
 
     formulario.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -38,9 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            // He puesto la URL EXACTA que sale en tu captura de n8n
-            const response = await fetch('https://unstormable-trothless-gilberto.ngrok-free.dev/webhook-test/6ffca2b8-3a7d-487c-b8d4-5f9154d2cb4a', {
-                method: 'POST',
+            // Esta es la URL EXACTA que sale en tu captura de n8n
+            const urlN8n = 'https://unstormable-trothless-gilberto.ngrok-free.dev/webhook-test/6ffca2b8-3a7d-487c-b8d4-5f9154d2cb4a';
+
+            const response = await fetch(urlN8n, {
+                method: 'POST', // Importante: n8n debe estar en POST también
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -48,14 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                alert('¡Cita enviada correctamente!');
+                alert('¡Cita enviada con éxito!');
                 formulario.reset();
             } else {
-                alert('Error: n8n recibió la llamada pero algo falló.');
+                alert('n8n recibió los datos pero hubo un problema. Revisa el nodo.');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Error de conexión. Revisa que ngrok esté activo.');
+            alert('No se pudo conectar con n8n. ¿Tienes ngrok abierto?');
         }
     });
 });

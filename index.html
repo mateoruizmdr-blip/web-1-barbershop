@@ -21,35 +21,180 @@
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-<!DOCTYPE html>
-<html lang="es">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reserva Peluquería</title>
+    <title>Mateo Barber - Reservas</title>
     <style>
-        body { font-family: sans-serif; max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
-        label { display: block; margin-top: 10px; }
-        input, select, button { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
-        button { background-color: #28a745; color: white; border: none; margin-top: 20px; cursor: pointer; }
-        #mensaje { margin-top: 15px; font-weight: bold; text-align: center; }
+        body { font-family: 'Arial', sans-serif; background-color: #1a1a1a; color: white; max-width: 500px; margin: 40px auto; padding: 20px; border: 1px solid #333; border-radius: 15px; }
+        h2 { text-align: center; color: #d4af37; text-transform: uppercase; }
+        label { display: block; margin-top: 15px; color: #ccc; }
+        input, select, button { width: 100%; padding: 12px; margin-top: 5px; border-radius: 5px; border: 1px solid #444; background: #222; color: white; box-sizing: border-box; }
+        button { background-color: #d4af37; color: black; font-weight: bold; cursor: pointer; border: none; margin-top: 25px; }
+        button:hover { background-color: #b8962e; }
+        #mensaje { margin-top: 20px; text-align: center; font-weight: bold; }
     </style>
 </head>
+    <script>
+        const URL_N8N = "https://unstormable-trothless-gilberto.ngrok-free.dev/webhook/ad75122a-497e-41ee-9d8d-3f254f51b366";
+
+        const dateInput = document.getElementById('date');
+        const serviceInput = document.getElementById('service');
+        const timeSelect = document.getElementById('time');
+        const mensajeDiv = document.getElementById('mensaje');
+
+        async function consultarDisponibilidad() {
+            const fecha = dateInput.value;
+            const servicio = serviceInput.value;
+            if (!fecha || !servicio) return;
+
+            timeSelect.innerHTML = '<option>Buscando huecos...</option>';
+            try {
+                const response = await fetch(`${URL_N8N}?fecha=${fecha}&servicio=${servicio}`);
+                const data = await response.json();
+                timeSelect.innerHTML = '<option value="">-- Selecciona una hora --</option>';
+                if (data.horas) {
+                    data.horas.forEach(h => {
+                        const opt = document.createElement('option');
+                        opt.value = h; opt.textContent = h;
+                        timeSelect.appendChild(opt);
+                    });
+                }
+            } catch (error) {
+                timeSelect.innerHTML = '<option>Error de conexión</option>';
+            }
+        }
+
+        dateInput.addEventListener('change', consultarDisponibilidad);
+        serviceInput.addEventListener('change', consultarDisponibilidad);
+
+        document.getElementById('reservaForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            mensajeDiv.textContent = "Reservando...";
+            const datos = {
+                nombre: document.getElementById('name').value,
+                fecha: dateInput.value,
+                servicio: serviceInput.value,
+                hora: timeSelect.value
+            };
+            const res = await fetch(URL_N8N, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datos)
+            });
+            if (res.ok) {
+                mensajeDiv.innerHTML = "✅ ¡Cita confirmada!";
+                document.getElementById('reservaForm').reset();
+            }
+        });
+    </script>
 <body>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Reserva Peluquería</title>
-    <style>
-        body { font-family: sans-serif; max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9; }
-        label { display: block; margin-top: 10px; font-weight: bold; }
-        input, select, button { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ddd; }
-        button { background-color: #d4af37; color: white; border: none; font-size: 16px; cursor: pointer; margin-top: 20px; }
-        #mensaje { margin-top: 15px; text-align: center; }
-    </style>
-</head>
+    
+    <h2>Reserva tu Cita</h2>
+    <form id="reservaForm">
+        <label>Nombre completo:</label>
+        <input type="text" id="name" placeholder="Tu nombre" required>
+
+        <label>Servicio:</label>
+        <select id="service" required>
+            <option value="">-- Selecciona un servicio --</option>
+            <option value="15">Corte Express (15 min)</option>
+            <option value="30">Corte y Barba (30 min)</option>
+            <option value="45">Servicio Premium (45 min)</option>
+        </select>
+
+        <label>Fecha:</label>
+        <input type="date" id="date" required>
+
+        <label>Hora disponible:</label>
+        <select id="time" required>
+            <option value="">Primero elige fecha y servicio</option>
+        </select>
+
+        <button type="submit">CONFIRMAR RESERVA</button>
+    </form>
+
+    <div id="mensaje"></div>
+
+    <script>
+        // URL de tu n8n (Asegúrate de que ngrok esté abierto)
+        const URL_WEBHOOK = "https://unstormable-trothless-gilberto.ngrok-free.dev/webhook/ad75122a-497e-41ee-9d8d-3f254f51b366";
+
+        const dateInput = document.getElementById('date');
+        const serviceInput = document.getElementById('service');
+        const timeSelect = document.getElementById('time');
+        const mensajeDiv = document.getElementById('mensaje');
+
+        // 1. CARGAR HORAS CUANDO CAMBIE FECHA O SERVICIO
+        async function actualizarDisponibilidad() {
+            const fecha = dateInput.value;
+            const servicio = serviceInput.value;
+
+            if (!fecha || !servicio) return;
+
+            timeSelect.innerHTML = '<option>Buscando huecos...</option>';
+
+            try {
+                const response = await fetch(`${URL_WEBHOOK}?fecha=${fecha}&servicio=${servicio}`);
+                const data = await response.json();
+
+                timeSelect.innerHTML = '<option value="">-- Selecciona una hora --</option>';
+                
+                // n8n debe devolver las horas en un array llamado "horas"
+                if (data.horas && data.horas.length > 0) {
+                    data.horas.forEach(h => {
+                        const opt = document.createElement('option');
+                        opt.value = h;
+                        opt.textContent = h;
+                        timeSelect.appendChild(opt);
+                    });
+                } else {
+                    timeSelect.innerHTML = '<option value="">No hay citas disponibles</option>';
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                timeSelect.innerHTML = '<option value="">Error al cargar horas</option>';
+            }
+        }
+
+        dateInput.addEventListener('change', actualizarDisponibilidad);
+        serviceInput.addEventListener('change', actualizarDisponibilidad);
+
+        // 2. ENVIAR RESERVA
+        document.getElementById('reservaForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            mensajeDiv.textContent = "Procesando reserva...";
+            mensajeDiv.style.color = "white";
+
+            const datos = {
+                nombre: document.getElementById('name').value,
+                fecha: dateInput.value,
+                servicio: serviceInput.value,
+                hora: timeSelect.value
+            };
+
+            try {
+                const res = await fetch(URL_WEBHOOK, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datos)
+                });
+
+                if (res.ok) {
+                    mensajeDiv.innerHTML = "✅ ¡Cita confirmada!<br>Te esperamos el " + datos.fecha + " a las " + datos.hora;
+                    mensajeDiv.style.color = "#d4af37";
+                    document.getElementById('reservaForm').reset();
+                } else {
+                    mensajeDiv.textContent = "❌ Error al reservar. Inténtalo de nuevo.";
+                    mensajeDiv.style.color = "red";
+                }
+            } catch (f) {
+                mensajeDiv.textContent = "❌ No se pudo conectar con el servidor.";
+                mensajeDiv.style.color = "red";
+            }
+        });
+    </script>
+</body>
+</html>
 <body>
     <h2>Reserva tu Cita</h2>
     <form id="reservaForm">

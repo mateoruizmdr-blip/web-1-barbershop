@@ -23,6 +23,43 @@
 </head>
 
 <body>
+    // 1. Configuración de la URL de tu n8n
+const urlConsultar = "https://unstormable-trothless-gilberto.ngrok-free.dev/webhook/ad75122a-497e-41ee-9d8d-3f254f51b366";
+
+// 2. Función para cargar las horas dinámicamente
+async function cargarHoras() {
+    const fecha = document.getElementById('date').value; // Asegúrate que el ID sea 'date' o 'fecha'
+    const servicio = document.getElementById('service').value; // Asegúrate que el ID sea 'service' o 'servicio'
+    const selectHora = document.getElementById('time'); // Asegúrate que el ID sea 'time' o 'hora'
+
+    if (!fecha || !servicio) return;
+
+    try {
+        const respuesta = await fetch(`${urlConsultar}?fecha=${fecha}&servicio=${servicio}`);
+        const datos = await respuesta.json();
+
+        // Limpiamos el selector de horas
+        selectHora.innerHTML = '<option value="">-- Selecciona hora --</option>';
+
+        // Rellenamos con las horas que calculó tu nodo Code
+        if(datos.horas) {
+            datos.horas.forEach(h => {
+                const option = document.createElement('option');
+                option.value = h;
+                option.textContent = h;
+                selectHora.appendChild(option);
+            });
+        }
+    } catch (error) {
+        console.error("Error al conectar con n8n:", error);
+    }
+}
+
+// 3. Activamos la escucha para que cambie cuando el usuario elija fecha o servicio
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('date').addEventListener('change', cargarHoras);
+    document.getElementById('service').addEventListener('change', cargarHoras);
+});
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const formulario = document.getElementById('bookingForm');
